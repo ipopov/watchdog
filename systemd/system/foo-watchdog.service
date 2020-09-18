@@ -1,0 +1,9 @@
+[Unit]
+Description=Foo Watchdog
+
+[Service]
+ExecStart=/root/watchdog
+
+[Install]
+WantedBy=multi-user.target
+
