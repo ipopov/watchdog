@@ -19,8 +19,8 @@ ip link add name $TUNNEL_NAME type ipip \
 ip addr add $TUN_SOFIA/31 dev $TUNNEL_NAME
 ip link set $TUNNEL_NAME up
 
+iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
+
 #ip route add default via $TUN_NYC table 1234
 #ip rule add iif wlan0 table 1234
 #iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-
-iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
