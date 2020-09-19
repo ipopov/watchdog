@@ -6,6 +6,7 @@ import "net/http"
 import "os"
 import "os/signal"
 import "strings"
+import "syscall"
 import "time"
 
 import wdt "github.com/digineo/go-watchdogtimer"
@@ -39,7 +40,7 @@ func main() {
 
 	// For interactive testing of the program: handle Ctrl+C.
 	ctrlc := make(chan os.Signal, 1)
-	signal.Notify(ctrlc, os.Interrupt)
+	signal.Notify(ctrlc, os.Interrupt, syscall.SIGTERM)
 
 	for {
 		if time.Since(lastOk) < (5 * time.Minute) {
