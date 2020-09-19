@@ -21,6 +21,8 @@ ip link set $TUNNEL_NAME up
 
 ip route add default via $TUN_SOFIA table 1234
 ip rule add iif wlan0 table 1234
+
+iptables -t nat -A POSTROUTING -o tunudp -j MASQUERADE
+
 #
 #iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-#iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
