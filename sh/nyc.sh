@@ -20,7 +20,7 @@ modprobe fou
 ip fou add port $FOU_PORT ipproto 4
 ip link add name $TUNNEL_NAME type ipip \
   remote $TAILSCALE_SOFIA local $TAILSCALE_NYC \
-  ttl 225 encap fou encap-sport auto encap-dport $FOU_PORT
+  encap fou encap-sport auto encap-dport $FOU_PORT
 
 ip addr add $TUN_NYC/31 dev $TUNNEL_NAME
 ip link set $TUNNEL_NAME up
