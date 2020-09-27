@@ -29,6 +29,13 @@ ip route add default via $TUN_SOFIA table 1234
 ip rule add iif eth0.77 table 1234
 iptables -t nat -A POSTROUTING -o tunudp -j MASQUERADE
 
+# An amazing hack to get around the fact that the Sofia exit has an
+# edge router that breaks PMTU discovery (by unsetting the 'DF' bit on
+# internet ingress packets). So we hack TCP SYN messages, using a neat
+# trick from
+# https://tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.mtu-mss.html.
+iptables -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1200
+
 echo 1  >  /proc/sys/net/ipv4/ip_forward
 
 #
