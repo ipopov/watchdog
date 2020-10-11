@@ -21,6 +21,11 @@ ip link set $TUNNEL_NAME up
 
 iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
 
+# Wireguard client tunnels
+ip rule add from 192.168.2.4/30 table 555
+sudo ip route add table 555 default via 192.168.100.3 dev tunudp
+iptables -t nat -A POSTROUTING -s 192.168.2.4/30 -o tunudp -j MASQUERADE
+
 #ip route add default via $TUN_NYC table 1234
 #ip rule add iif wlan0 table 1234
 #iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
