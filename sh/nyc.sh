@@ -40,3 +40,6 @@ echo 1  >  /proc/sys/net/ipv4/ip_forward
 
 #
 #iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+# NAT outbound traffic from the wireguard client tunnels etc.
+iptables -t nat -A POSTROUTING -s 192.168.100.2/31 -o eth0 -j MASQUERADE
